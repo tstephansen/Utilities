@@ -16,6 +16,17 @@
             "console": "internalConsole"
         },
         {
+            "name": "FolderCleaner .NET Core Launch",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet: build",
+            "program": "${workspaceFolder}/FolderCleaner/bin/Debug/net8.0/FolderCleaner.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             "name": "MakeISO .NET Core Launch",
             "type": "coreclr",
             "request": "launch",

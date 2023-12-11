@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unzipper", "Unzipper\Unzipp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeIso", "MakeIso\MakeIso.csproj", "{63A3DBF6-44B6-48D2-881E-2447AD07EDB4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderCleaner", "FolderCleaner\FolderCleaner.csproj", "{8BD2C015-DC17-43D4-97E2-139709C2760C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{63A3DBF6-44B6-48D2-881E-2447AD07EDB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63A3DBF6-44B6-48D2-881E-2447AD07EDB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63A3DBF6-44B6-48D2-881E-2447AD07EDB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BD2C015-DC17-43D4-97E2-139709C2760C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD2C015-DC17-43D4-97E2-139709C2760C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD2C015-DC17-43D4-97E2-139709C2760C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD2C015-DC17-43D4-97E2-139709C2760C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
