@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.VisualBasic.FileIO;
 
 namespace FolderCleaner
 {
@@ -71,18 +70,18 @@ namespace FolderCleaner
 		public bool CalculateDirectoriesToClean()
 		{
 			var baseDirInfo = new DirectoryInfo(_baseDirectory);
-            CleanDirectory(baseDirInfo);
+			CheckIfDirectoryShouldBeCleaned(baseDirInfo);
 			return _directoriesToRemove.Any();
 		}
 
-        private void CleanDirectory(DirectoryInfo dirInfo)
+        private void CheckIfDirectoryShouldBeCleaned(DirectoryInfo dirInfo)
         {
-            var directories = dirInfo.GetDirectories("*", System.IO.SearchOption.TopDirectoryOnly);
-            var files = dirInfo.GetFiles("*", System.IO.SearchOption.TopDirectoryOnly);
+            var directories = dirInfo.GetDirectories("*", SearchOption.TopDirectoryOnly);
+            var files = dirInfo.GetFiles("*", SearchOption.TopDirectoryOnly);
             foreach(var directory in directories)
             {
                 var subDirInfo = new DirectoryInfo(directory.FullName);
-                CleanDirectory(subDirInfo);
+                CheckIfDirectoryShouldBeCleaned(subDirInfo);
             }
             if (directories.Length == 0 && files.Length == 0)
                 _directoriesToRemove.Add(dirInfo.FullName);
@@ -100,6 +99,11 @@ namespace FolderCleaner
 			{
 				try
 				{
+					var files = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
+					if (files.Any())
+					{
+						Console.WriteLine($"{directory} is not empty so it is not being removed.");
+					}
 					//FileSystem.DeleteDirectory(directory, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
 					Directory.Delete(directory);
 					Console.WriteLine(directory);

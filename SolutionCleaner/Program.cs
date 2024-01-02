@@ -1,4 +1,6 @@
-﻿namespace SolutionCleaner;
+﻿using FolderCleaner;
+
+namespace SolutionCleaner;
 
 class Program
 {
@@ -6,24 +8,27 @@ class Program
     {
         Console.WriteLine("*****VS Solution Cleaner*****");
         var filePath = string.Empty;
-        if (args.Length == 0)
-            filePath = System.Environment.CurrentDirectory;
-        else
+        if (args.Any(c=> !c.StartsWith("-")))
         {
-            if (args[0].StartsWith("~"))
-                filePath = args[0].Replace("~", $"/Users/{Environment.UserName}");
-            else
-                filePath = args[0];
+            foreach(var arg in args.Where(c=> !c.StartsWith("-")))
+            {
+                if (arg.StartsWith("~"))
+                    filePath = arg.Replace("~", $"/Users/{Environment.UserName}");
+                else
+                    filePath = arg;
+            }
         }
+        if (string.IsNullOrEmpty(filePath))
+            filePath = System.Environment.CurrentDirectory;
         Console.WriteLine($"\nThe folder path you provided is: {filePath}\n");
-        var confirm = true;
-        if (args.Any(c=> c == "-y"))
-            confirm = false;
+        var confirmationRequired = !args.Any(c => c is "-y" or "-confirm");
         if (!Directory.Exists(filePath))
         {
             Console.WriteLine("An invalid path was specified. Please check the path and try again.");
             return;
         }
+        var objFolders = new List<string>();
+        var binFolders = new List<DirectoryInfo>();
         var foldersToRemove = new List<string>();
         var solutionDirectory = new DirectoryInfo(filePath);
         var files = solutionDirectory.GetFiles("*.csproj", SearchOption.AllDirectories);
@@ -34,16 +39,23 @@ class Program
             var objFolder = Path.Combine(file.Directory.FullName, "obj");
             var binFolder = Path.Combine(file.Directory.FullName, "bin");
             if (Directory.Exists(objFolder))
+            {
+                objFolders.Add(objFolder);
                 foldersToRemove.Add(objFolder);
+            }
+
             if (Directory.Exists(binFolder))
+            {
+                binFolders.Add(new DirectoryInfo(binFolder));
                 foldersToRemove.Add(binFolder);
+            }
         }
-        Console.WriteLine("\n\nThe following folders will be removed:\n");
+        Console.WriteLine("\nThe following folders will be removed:\n");
         foreach(var folder in foldersToRemove)
         {
             Console.WriteLine(folder);
         }
-        if (confirm)
+        if (confirmationRequired)
         {
             Console.WriteLine("\nAre you sure you want to remove these folders? (y/n)");
             var result = Console.ReadLine();
@@ -53,15 +65,33 @@ class Program
                 return;
             }
         }
-        var results = new List<bool>();
-        foreach(var folder in foldersToRemove)
+        foreach (var folder in objFolders)
+            TryRemoveFolder(folder);
+        foreach(var folder in binFolders)
         {
-            results.Add(TryRemoveFolder(folder));
+            Console.WriteLine($"Removing folder {folder.FullName}");
+            var filesToRemove = folder.GetFiles("*", SearchOption.AllDirectories);
+            foreach(var file in filesToRemove)
+            {
+                if (file.Extension.Contains("key") || file.Extension.Contains("edf"))
+                    continue;
+                File.Delete(file.FullName);
+            }
         }
-        if (results.All(c => c))
-            Console.WriteLine("\n\nThe solution has been cleaned successfully.");
-        else
-            Console.WriteLine("\n\nError were encountered while cleaning the solution. The errors are visible in the terminal above.");
+        var cleaner = new Cleaner(filePath);
+        var canClean = cleaner.CalculateDirectoriesToClean();
+        if (canClean)
+        {
+            Console.WriteLine("Removing empty directories...");
+            cleaner.RemoveDirectories();
+            if (cleaner.Exceptions.Count > 0)
+            {
+                Console.WriteLine("There was a problem removing one or more directories. They are listed below. All other empty directories have been removed.\n\n");
+                foreach(var item in cleaner.Exceptions)
+                    Console.WriteLine(item);
+            }
+        }
+        Console.WriteLine("\n\nThe solution has been cleaned.");
     }
 
     private static bool TryRemoveFolder(string folder)
