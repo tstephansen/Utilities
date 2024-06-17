@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeIso", "MakeIso\MakeIso.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderCleaner", "FolderCleaner\FolderCleaner.csproj", "{8BD2C015-DC17-43D4-97E2-139709C2760C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Truster", "Truster\Truster.csproj", "{0B694B34-6860-4C12-B72A-06952D7E146F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{8BD2C015-DC17-43D4-97E2-139709C2760C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BD2C015-DC17-43D4-97E2-139709C2760C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BD2C015-DC17-43D4-97E2-139709C2760C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B694B34-6860-4C12-B72A-06952D7E146F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B694B34-6860-4C12-B72A-06952D7E146F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B694B34-6860-4C12-B72A-06952D7E146F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B694B34-6860-4C12-B72A-06952D7E146F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

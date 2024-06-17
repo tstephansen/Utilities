@@ -1,6 +1,8 @@
 # FolderCleaner
 
-##### A command line utility to find and move empty folders and subfolders to the Recycle Bin.
+## Description
+
+A command line utility to find and move empty folders and subfolders to the Recycle Bin. This utility is for Windows only.
 
 ### Usage
 
