@@ -5,8 +5,15 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PublishSingleFile>true</PublishSingleFile>
-		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishTrimmed>false</PublishTrimmed>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('osx'))">osx-arm64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('windows'))">win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
 </Project>

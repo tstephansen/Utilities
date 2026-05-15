@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="CaseChanger/CaseChanger.csproj" />
+  <Project Path="FolderCleaner/FolderCleaner.csproj" />
+  <Project Path="MakeIso/MakeIso.csproj" />
+  <Project Path="QuoteFlipper/QuoteFlipper.csproj" />
+  <Project Path="SolutionCleaner/SolutionCleaner.csproj" />
+  <Project Path="Truster/Truster.csproj" />
+  <Project Path="UnderscoreRemover/UnderscoreRemover.csproj" />
+  <Project Path="Unzipper/Unzipper.csproj" />
+</Solution>
