@@ -20,7 +20,7 @@ class Program
             Console.WriteLine("Please provide a string to clean.");
             return;
         }
-        var result = RemoveInnerAsterisks(origText);
+        var result = RemoveInnerAsterisks(FixMismatchedDelimiters(origText));
         if (printText)
             Console.WriteLine(result);
         await SetClipboardText(result);
@@ -49,6 +49,23 @@ class Program
         {
             Console.WriteLine($"Failed to copy to clipboard: {ex.Message}");
         }
+    }
+
+    static string FixMismatchedDelimiters(string input)
+    {
+        return Regex.Replace(
+            input,
+            @"(?<=^|[\s""(])(?<open>[_*])(?<content>[^_*\r\n]+?)(?<close>[_*])(?=[\s"".,!?;:)]|$)",
+            match =>
+            {
+                string open = match.Groups["open"].Value;
+                string close = match.Groups["close"].Value;
+                if (open == close)
+                    return match.Value;
+
+                return $"{open}{match.Groups["content"].Value}{open}";
+            }
+        );
     }
 
     static string RemoveInnerAsterisks(string input)
