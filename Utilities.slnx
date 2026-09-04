@@ -3,6 +3,7 @@
     <File Path="LICENSE" />
     <File Path="README.md" />
   </Folder>
+  <Project Path="AsteriskFixer/AsteriskFixer.csproj" />
   <Project Path="CaseChanger/CaseChanger.csproj" />
   <Project Path="FolderCleaner/FolderCleaner.csproj" />
   <Project Path="MakeIso/MakeIso.csproj" />
